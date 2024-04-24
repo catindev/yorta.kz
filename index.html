@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ЮРТА</title>
+
+    <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+
+    <!-- Подключение Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+    <!-- Подключение шрифта Rubik -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap" />
+
+    <!-- Применение шрифта Rubik -->
+    <style>
+      body {
+        font-family: "Rubik", sans-serif;
+      }
+
+      .link-container a {
+        text-decoration: none;
+        margin-right: 30px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container-fluid d-flex flex-column" style="min-height: 100vh">
+      <header class="bg-light">
+        <div class="container py-3">
+          <div class="logo">
+            <img src="Logo.svg" alt="Логотип компании" />
+          </div>
+        </div>
+      </header>
+
+      <div class="container flex-grow-1">
+        <div class="row">
+          <div class="col-md-8">
+            <div class="body">
+              <h1>Сервис оплаты заказов</h1>
+              <ol>
+                <li>
+                  <p>Введите номер заказа и нажмите отправить</p>
+                </li>
+                <li>
+                  <p>Оплатите заказ банковской картой или QR кодом</p>
+                </li>
+            </ol>
+              <form id="myForm">
+                <textarea id="textInput" placeholder="Введите номер заказа" class="form-control mb-3"></textarea>
+                <button id="submitButton" type="submit" class="btn btn-primary" disabled>Отправить</button>
+                <div id="loader" class="spinner-border text-primary" role="status" style="display: none"></div>
+              </form>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <!-- Дополнительный контент, если нужен -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer class="bg-light fixed-bottom">
+      <div class="container py-3">
+        <div class="links">
+          <div class="link-container">
+            <a href="#" class="link-secondary">Оферта</a>
+            <a href="#" class="link-secondary">Политика конфиденциальности</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Подключение Bootstrap JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Ваш JavaScript -->
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        var textInput = document.getElementById("textInput");
+        var submitButton = document.getElementById("submitButton");
+
+        // При загрузке страницы проверяем, есть ли текст в поле ввода
+        textInput.addEventListener("input", function () {
+          if (textInput.value.trim() !== "") {
+            submitButton.removeAttribute("disabled");
+          } else {
+            submitButton.setAttribute("disabled", "disabled");
+          }
+        });
+
+        document.getElementById("myForm").addEventListener("submit", function (event) {
+          event.preventDefault();
+          var submitButton = document.getElementById("submitButton");
+          var loader = document.getElementById("loader");
+
+          // Показываем прелоадер и скрываем кнопку
+          loader.style.display = "inline-block";
+          submitButton.style.display = "none";
+
+          // Отправляем AJAX-запрос
+          var xhr = new XMLHttpRequest();
+          xhr.open("GET", "https://ggh-sevices.glitch.me/v1/yorta?id=123", true);
+          xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4) {
+              // Закончили загрузку данных
+              loader.style.display = "none";
+              submitButton.style.display = "inline-block";
+
+              // Выводим алерт в зависимости от статуса ответа
+              if (xhr.status === 200) {
+                var myModal = new bootstrap.Modal(document.getElementById("alertModal"));
+                myModal.show();
+              } else {
+                var myModal = new bootstrap.Modal(document.getElementById("alertModal"));
+                myModal.show();
+              }
+            }
+          };
+          xhr.send();
+        });
+      });
+    </script>
+
+    <!-- Модальное окно Bootstrap для вывода алерта -->
+    <div
+      class="modal fade"
+      id="alertModal"
+      tabindex="-1"
+      aria-labelledby="alertModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="alertModalLabel">Ошибка</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <p>Номер заказа не найден.</p>
+            <p>Пожалуйста, проверьте номер заказа в личном кабинете.</p> 
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-primary"
+              data-bs-dismiss="modal"
+            >
+              OK
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
