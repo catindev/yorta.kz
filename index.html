@@ -8,66 +8,174 @@
     <link rel="icon" href="favicon.svg" type="image/svg+xml" />
 
     <!-- Подключение Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
 
     <!-- Подключение шрифта Rubik -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap"
+    />
 
-    <!-- Применение шрифта Rubik -->
+    <!-- Применение шрифта Rubik и стилизация body -->
     <style>
       body {
         font-family: "Rubik", sans-serif;
+        margin: 0; /* убираем отступы по умолчанию */
+        padding: 0; /* убираем отступы по умолчанию */
+      }
+
+      header,
+      footer {
+        background-color: #f8f9fa; /* серый фон */
       }
 
       .link-container a {
         text-decoration: none;
         margin-right: 30px;
       }
+
+      .yurta-image {
+        width: 100%;
+        text-align: right; /* Выравниваем содержимое по правому краю */
+      }
+
+      .content {
+        background-color: white; /* белый фон */
+        padding-top: 50px; /* добавляем отступ сверху, чтобы контент не прижимался к header */
+        padding-bottom: 100px; /* добавляем отступ снизу, чтобы контент не прижимался к footer */
+      }
+
+      .flex-container {
+        display: flex;
+        justify-content: space-between; /* Равномерное распределение между элементами */
+        align-items: flex-start; /* Прижатие к верху */
+        flex-wrap: wrap; /* Разрешаем перенос элементов на новую строку */
+      }
+
+      .flex-container > div {
+        flex: 1 1 50%; /* Равномерное распределение по ширине контейнера */
+        padding: 10px; /* Добавляем небольшие отступы */
+      }
+
+      .body {
+        max-width: 500px; /* Максимальная ширина контента */
+        margin: auto; /* Центрирование контента */
+      }
+
+      /* Стили для формы */
+      #myForm {
+        max-width: 500px; /* Максимальная ширина формы */
+        width: 100%; /* Занимает всю доступную ширину контейнера */
+      }
+
+      /* Стили для полей ввода */
+      #myForm textarea {
+        resize: none; /* Запрет на изменение размеров текстовых полей */
+        height: 30px; /* Уменьшаем высоту полей ввода */
+      }
+
+      @media (max-width: 768px) {
+        .yurta-image {
+          display: none; /* Скрываем блок при ширине экрана 768px и менее */
+        }
+      }
+
+      /* Медиа-запросы для размещения ссылок друг под другом при уменьшении экрана до 425px */
+      @media (max-width: 425px) {
+        .link-container a {
+          display: block; /* Размещаем каждую ссылку на новой строке */
+          margin-bottom: 10px; /* Добавляем отступ между ссылками, кроме последней */
+        }
+
+        .link-container a:last-child {
+          margin-bottom: 0; /* Убираем отступ вниз после последней ссылки */
+        }
+      }
     </style>
   </head>
-  <body>
-    <div class="container-fluid d-flex flex-column" style="min-height: 100vh">
-      <header class="bg-light">
-        <div class="container py-3">
-          <div class="logo">
-            <img src="Logo.svg" alt="Логотип компании" />
-          </div>
-        </div>
-      </header>
 
-      <div class="container flex-grow-1">
+  <body>
+    <header class="bg-light">
+      <div class="container py-3">
+        <div class="logo">
+          <img src="Logo.svg" alt="Логотип компании" />
+        </div>
+      </div>
+    </header>
+
+    <div class="content">
+      <div class="container">
         <div class="row">
-          <div class="col-md-8">
+          <div class="flex-container">
             <div class="body">
               <h1>Сервис оплаты заказов</h1>
               <ol>
                 <li>
-                  <p>Введите номер заказа и нажмите отправить</p>
+                  <p>Введите данные вашего заказа</p>
                 </li>
                 <li>
                   <p>Оплатите заказ банковской картой или QR кодом</p>
                 </li>
-            </ol>
-              <form id="myForm">
-                <textarea id="textInput" placeholder="Введите номер заказа" class="form-control mb-3"></textarea>
-                <button id="submitButton" type="submit" class="btn btn-primary" disabled>Отправить</button>
-                <div id="loader" class="spinner-border text-primary" role="status" style="display: none"></div>
+              </ol>
+              <form id="myForm" style="max-width: 500px">
+                <textarea
+                  id="accountInput"
+                  placeholder="Номер аккаунта"
+                  class="form-control mb-3"
+                ></textarea>
+                <textarea
+                  id="orderInput"
+                  placeholder="Номер заказа"
+                  class="form-control mb-3"
+                ></textarea>
+                <textarea
+                  id="paymentInput"
+                  placeholder="Сумму оплаты"
+                  class="form-control mb-3"
+                ></textarea>
+                <button id="submitButton" type="submit" class="btn btn-primary">
+                  Отправить
+                </button>
+                <div
+                  id="loader"
+                  class="spinner-border text-primary"
+                  role="status"
+                  style="display: none"
+                ></div>
               </form>
             </div>
-          </div>
-          <div class="col-md-4">
-            <!-- Дополнительный контент, если нужен -->
+            <div class="yurta-image">
+              <img
+                src="picture.svg"
+                alt="Юрта изображение"
+                style="max-width: 100%; height: auto"
+              />
+            </div>
           </div>
         </div>
       </div>
     </div>
 
     <footer class="bg-light fixed-bottom">
-      <div class="container py-3">
+      <div class="container py-3" style="max-width: 1250px">
         <div class="links">
           <div class="link-container">
-            <a href="#" class="link-secondary">Оферта</a>
-            <a href="#" class="link-secondary">Политика конфиденциальности</a>
+            <a href="offer.pdf" class="link-secondary" target="_blank"
+              >Оферта</a
+            >
+            <a href="privacy_policy.pdf" class="link-secondary" target="_blank"
+              >Политика конфиденциальности</a
+            >
+            <a
+              href="#"
+              class="link-secondary"
+              data-bs-toggle="modal"
+              data-bs-target="#infoModal"
+              >О сервисе</a
+            >
           </div>
         </div>
       </div>
@@ -77,50 +185,129 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 
     <!-- Ваш JavaScript -->
+    <!-- Ваш JavaScript -->
     <script>
       document.addEventListener("DOMContentLoaded", function () {
-        var textInput = document.getElementById("textInput");
+        var accountInput = document.getElementById("accountInput");
+        var orderInput = document.getElementById("orderInput");
+        var paymentInput = document.getElementById("paymentInput");
         var submitButton = document.getElementById("submitButton");
 
-        // При загрузке страницы проверяем, есть ли текст в поле ввода
-        textInput.addEventListener("input", function () {
-          if (textInput.value.trim() !== "") {
-            submitButton.removeAttribute("disabled");
+        // Функция для проверки, содержит ли строка только цифры
+        function containsOnlyDigits(inputValue) {
+          return /^\d+$/.test(inputValue);
+        }
+
+        // Функция для подсветки неверных полей ввода
+        function highlightInvalidInputs() {
+          if (!containsOnlyDigits(accountInput.value.trim())) {
+            accountInput.classList.add("is-invalid");
           } else {
-            submitButton.setAttribute("disabled", "disabled");
+            accountInput.classList.remove("is-invalid");
           }
-        });
 
-        document.getElementById("myForm").addEventListener("submit", function (event) {
-          event.preventDefault();
-          var submitButton = document.getElementById("submitButton");
-          var loader = document.getElementById("loader");
+          if (!containsOnlyDigits(orderInput.value.trim())) {
+            orderInput.classList.add("is-invalid");
+          } else {
+            orderInput.classList.remove("is-invalid");
+          }
 
-          // Показываем прелоадер и скрываем кнопку
-          loader.style.display = "inline-block";
-          submitButton.style.display = "none";
+          if (!containsOnlyDigits(paymentInput.value.trim())) {
+            paymentInput.classList.add("is-invalid");
+          } else {
+            paymentInput.classList.remove("is-invalid");
+          }
+        }
 
-          // Отправляем AJAX-запрос
-          var xhr = new XMLHttpRequest();
-          xhr.open("GET", "https://ggh-sevices.glitch.me/v1/yorta?id=123", true);
-          xhr.onreadystatechange = function () {
-            if (xhr.readyState === 4) {
-              // Закончили загрузку данных
-              loader.style.display = "none";
-              submitButton.style.display = "inline-block";
-
-              // Выводим алерт в зависимости от статуса ответа
-              if (xhr.status === 200) {
-                var myModal = new bootstrap.Modal(document.getElementById("alertModal"));
-                myModal.show();
-              } else {
-                var myModal = new bootstrap.Modal(document.getElementById("alertModal"));
-                myModal.show();
-              }
+        // Функция для проверки всех полей перед отправкой формы
+        function validateForm() {
+          if (
+            accountInput.value.trim() === "" ||
+            orderInput.value.trim() === "" ||
+            paymentInput.value.trim() === ""
+          ) {
+            // Если хотя бы одно поле не заполнено
+            // и сообщение об ошибке уже не отображается
+            if (!document.querySelector(".alert")) {
+              var alertElement = document.createElement("div");
+              alertElement.className = "alert alert-danger";
+              alertElement.role = "alert";
+              alertElement.textContent = "Пожалуйста, заполните все поля!";
+              document.getElementById("myForm").prepend(alertElement);
             }
-          };
-          xhr.send();
+            return false;
+          } else {
+            // Если все поля заполнены, убираем сообщение об ошибке
+            var existingAlert = document.querySelector(".alert");
+            if (existingAlert) {
+              existingAlert.remove();
+            }
+            return true;
+          }
+        }
+
+        // При изменении значения в полях проверяем, содержат ли они только цифры
+        [accountInput, orderInput, paymentInput].forEach(function (input) {
+          input.addEventListener("input", function () {
+            // Проверяем, содержит ли введенное значение только цифры
+            if (!containsOnlyDigits(input.value.trim())) {
+              input.setCustomValidity("Пожалуйста, вводите только цифры");
+            } else {
+              input.setCustomValidity("");
+            }
+
+            // Подсветка неверных полей ввода
+            highlightInvalidInputs();
+
+            // Если все поля заполнены, активируем кнопку Отправить
+            if (
+              accountInput.value.trim() !== "" &&
+              orderInput.value.trim() !== "" &&
+              paymentInput.value.trim() !== ""
+            ) {
+              submitButton.removeAttribute("disabled");
+            } else {
+              submitButton.setAttribute("disabled", "disabled");
+            }
+          });
         });
+
+        // При отправке формы проводим валидацию
+        document
+          .getElementById("myForm")
+          .addEventListener("submit", function (event) {
+            event.preventDefault();
+            if (validateForm()) {
+              var submitButton = document.getElementById("submitButton");
+              var loader = document.getElementById("loader");
+
+              // Показываем прелоадер и скрываем кнопку
+              loader.style.display = "inline-block";
+              submitButton.style.display = "none";
+
+              // Отправляем AJAX-запрос
+              var xhr = new XMLHttpRequest();
+              xhr.open(
+                "GET",
+                "https://ggh-sevices.glitch.me/v1/yorta?id=123",
+                true
+              );
+              xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4) {
+                  // Закончили загрузку данных
+                  loader.style.display = "none";
+                  submitButton.style.display = "inline-block";
+
+                  // Выводим алерт в зависимости от статуса ответа
+                  var myModal = new bootstrap.Modal(
+                    document.getElementById("alertModal")
+                  );
+                  myModal.show();
+                }
+              };
+              xhr.send();
+            }
+          });
       });
     </script>
 
@@ -145,7 +332,7 @@
           </div>
           <div class="modal-body">
             <p>Номер заказа не найден.</p>
-            <p>Пожалуйста, проверьте номер заказа в личном кабинете.</p> 
+            <p>Пожалуйста, проверьте номер заказа в личном кабинете.</p>
           </div>
           <div class="modal-footer">
             <button
@@ -155,6 +342,57 @@
             >
               OK
             </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Создаем модальное окно для отображения информации о сервисе -->
+    <div
+      class="modal fade"
+      id="infoModal"
+      tabindex="-1"
+      aria-labelledby="infoModalLabel"
+      aria-hidden="true"
+    >
+      <div
+        class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg"
+      >
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="infoModalLabel">О сервисе</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <p>
+              ЮРТА представляет собой уникальный сервис, предназначенный для
+              удобной оплаты заказов от Amway — международного производителя
+              средств личной гигиены, бытовой химии, косметики, биологически
+              активных добавок к пище и предметов быта. Мы предлагаем безопасные
+              методы оплаты через банковские карты или QR-коды, обеспечивая
+              быстрое и легкое завершение процесса оплаты для каждого заказа.
+            </p>
+            <p>
+              Мы ценим ваше время, поэтому сделали процесс оплаты максимально
+              простым и понятным. Просто введите номер вашего аккаунта, номер
+              заказа и сумму оплаты, а затем нажмите кнопку "Отправить". Вы
+              сможете оплатить заказ всего в несколько кликов.
+            </p>
+            <p>
+              В случае возникновения проблем или вопросов, вы всегда можете
+              обратиться в нашу службу
+              <a href="mailto:infokz@amway.com">поддержки</a>. Мы работаем для
+              вас и готовы помочь в любой ситуации.
+            </p>
+            <p>
+              Благодарим вас за использование нашего сервиса. Мы надеемся, что
+              он сделает вашу жизнь немного проще и удобнее.
+            </p>
           </div>
         </div>
       </div>
