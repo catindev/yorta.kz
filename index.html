@@ -56,8 +56,7 @@
 
       .content {
         background-color: white; /* белый фон */
-        padding-top: 50px; /* добавляем отступ сверху, чтобы контент не прижимался к header */
-        padding-bottom: 100px; /* добавляем отступ снизу, чтобы контент не прижимался к footer */
+        padding-top: 10px; /* добавляем отступ сверху, чтобы контент не прижимался к header */
       }
 
       .flex-container {
@@ -105,6 +104,10 @@
         .link-container a:last-child {
           margin-bottom: 0; /* Убираем отступ вниз после последней ссылки */
         }
+
+        .link-container p {
+          margin-bottom: 10px;
+        }
       }
 
       .background-svg {
@@ -121,10 +124,16 @@
         background-color: #688eca; /* Цвет фона кнопки */
         border-color: #688eca; /* Цвет рамки кнопки (если есть) */
         color: white; /* Цвет текста кнопки */
+        margin-bottom: 15px;
       }
 
       h1 {
-        margin-bottom: 20px;
+        margin-bottom: 15px;
+      }
+
+      .body-title {
+        font-size: 24px;
+        margin-bottom: 25px;
       }
 
       ol li {
@@ -141,7 +150,7 @@
     </style>
   </head>
 
-  <body>
+  <body style="min-height: 100vh; display: flex; flex-direction: column">
     <header>
       <div class="container py-3">
         <div class="logo">
@@ -156,15 +165,8 @@
           <div class="flex-container">
             <div class="body">
               <h1>Оплачивай заказы не выходя из дома</h1>
-              <ol>
-                <li>
-                  <p>Введите данные вашего заказа</p>
-                </li>
-                <li>
-                  <p>Оплатите заказ банковской картой или QR кодом</p>
-                </li>
-              </ol>
-              <form id="myForm" style="max-width: 500px">
+              <p class="body-title">Плати банковской картой или QR-кодом</p>
+              <form id="myForm" style="max-width: 355px">
                 <div class="mb-2">
                   <label for="accountInput" class="form-label"
                     >Номер аккаунта</label
@@ -222,7 +224,7 @@
       </div>
     </div>
 
-    <footer class="bg-light fixed-bottom">
+    <footer class="bg-light mt-auto">
       <div class="container py-4">
         <div class="links">
           <div class="link-container">
@@ -249,7 +251,6 @@
     <!-- Подключение Bootstrap JavaScript -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 
-    <!-- Ваш JavaScript -->
     <!-- Ваш JavaScript -->
     <script>
       document.addEventListener("DOMContentLoaded", function () {
