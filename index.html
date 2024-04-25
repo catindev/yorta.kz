@@ -27,7 +27,6 @@
         padding: 0; /* убираем отступы по умолчанию */
       }
 
-      header,
       footer {
         background-color: #f8f9fa; /* серый фон */
       }
@@ -35,11 +34,24 @@
       .link-container a {
         text-decoration: none;
         margin-right: 30px;
+        font-size: 18px;
+      }
+
+      .link-container a:hover {
+        color: black !important;
+      }
+
+      .link-container p {
+        display: inline-block; /* Делаем копирайт блочным элементом */
+        vertical-align: middle; /* Выравниваем по вертикали с другими ссылками */
+        margin: 0 30px 0px 0px; /* Убираем отступы */
+        color: #6c757d; /* Цвет текста, соответствующий остальным ссылкам */
+        font-size: 18px;
       }
 
       .yurta-image {
         width: 100%;
-        text-align: right; /* Выравниваем содержимое по правому краю */
+        text-align: center; /* Выравниваем содержимое по правому краю */
       }
 
       .content {
@@ -94,11 +106,43 @@
           margin-bottom: 0; /* Убираем отступ вниз после последней ссылки */
         }
       }
+
+      .background-svg {
+        background-image: url("background.svg"); /* Путь к SVG-файлу фона */
+        background-size: auto; /* Сохранение размера изображения */
+        background-repeat: no-repeat; /* Запрет повторения изображения */
+        /* background-position: left; */ /* Центрирование изображения */
+      }
+
+      #submitButton {
+        width: 175px; /* Ширина кнопки */
+        height: 42px; /* Высота кнопки */
+        border-radius: 5px;
+        background-color: #688eca; /* Цвет фона кнопки */
+        border-color: #688eca; /* Цвет рамки кнопки (если есть) */
+        color: white; /* Цвет текста кнопки */
+      }
+
+      h1 {
+        margin-bottom: 20px;
+      }
+
+      ol li {
+        font-size: 18px; /* Устанавливаем размер шрифта для элементов списка */
+      }
+
+      ol li:last-child {
+        margin-bottom: 0; /* Убираем отступ снизу только у последнего элемента списка */
+      }
+
+      .custom-spinner {
+        color: #688eca;
+      }
     </style>
   </head>
 
   <body>
-    <header class="bg-light">
+    <header>
       <div class="container py-3">
         <div class="logo">
           <img src="Logo.svg" alt="Логотип компании" />
@@ -106,12 +150,12 @@
       </div>
     </header>
 
-    <div class="content">
-      <div class="container">
+    <div class="content background-svg">
+      <div class="container background-svg">
         <div class="row">
           <div class="flex-container">
             <div class="body">
-              <h1>Сервис оплаты заказов</h1>
+              <h1>Оплачивай заказы не выходя из дома</h1>
               <ol>
                 <li>
                   <p>Введите данные вашего заказа</p>
@@ -121,27 +165,46 @@
                 </li>
               </ol>
               <form id="myForm" style="max-width: 500px">
-                <textarea
-                  id="accountInput"
-                  placeholder="Номер аккаунта"
-                  class="form-control mb-3"
-                ></textarea>
-                <textarea
-                  id="orderInput"
-                  placeholder="Номер заказа"
-                  class="form-control mb-3"
-                ></textarea>
-                <textarea
-                  id="paymentInput"
-                  placeholder="Сумму оплаты"
-                  class="form-control mb-3"
-                ></textarea>
+                <div class="mb-2">
+                  <label for="accountInput" class="form-label"
+                    >Номер аккаунта</label
+                  >
+                  <textarea
+                    id="accountInput"
+                    class="form-control"
+                    style="height: 42px"
+                  ></textarea>
+                </div>
+
+                <div class="mb-2">
+                  <label for="orderInput" class="form-label"
+                    >Номер заказа</label
+                  >
+                  <textarea
+                    id="orderInput"
+                    class="form-control"
+                    style="height: 42px"
+                  ></textarea>
+                </div>
+
+                <div class="mb-3">
+                  <label for="paymentInput" class="form-label"
+                    >Сумму оплаты</label
+                  >
+                  <textarea
+                    id="paymentInput"
+                    class="form-control"
+                    style="height: 42px"
+                  ></textarea>
+                </div>
+
                 <button id="submitButton" type="submit" class="btn btn-primary">
-                  Отправить
+                  Подтвердить заказ
                 </button>
+
                 <div
                   id="loader"
-                  class="spinner-border text-primary"
+                  class="spinner-border custom-spinner"
                   role="status"
                   style="display: none"
                 ></div>
@@ -149,7 +212,7 @@
             </div>
             <div class="yurta-image">
               <img
-                src="picture.svg"
+                src="picture-main.svg"
                 alt="Юрта изображение"
                 style="max-width: 100%; height: auto"
               />
@@ -160,9 +223,11 @@
     </div>
 
     <footer class="bg-light fixed-bottom">
-      <div class="container py-3" style="max-width: 1250px">
+      <div class="container py-4">
         <div class="links">
           <div class="link-container">
+            <p>© 2024 Yorta</p>
+            <!-- Копирайт -->
             <a href="offer.pdf" class="link-secondary" target="_blank"
               >Оферта</a
             >
